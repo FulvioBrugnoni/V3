@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link href="{% static '/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+  </head>
+  <body>
+
+    <form action="" method="post" novalidate>
+  {% csrf_token %}
+<ul>
+<li>
+  <label>Nome</label>
+  {{form.nome}}
+</li>
+<li>
+<label>Cognome</label>
+{{form.cognome}}
+</li>
+<li>
+<label>Codice fiscale</label>
+{{form.codicefiscale}}
+</li>
+<li>
+<label>Età</label>
+{{form.eta}}
+</li>
+<li>
+<label>Gender</label>
+{{form.gender}}
+</li>
+<li>
+<label>Stato</label>
+{{form.stato}}
+</li>
+<li>
+<label>Provincia</label>
+{{form.provincia}}
+</li>
+<li>
+<label>Comune</label>
+{{form.comune}}
+</li>
+</ul>
+
+<button type="submit" class="btn btn-primary">Submit</button>
+  </body>
+</html>
