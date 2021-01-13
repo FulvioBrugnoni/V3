@@ -3,9 +3,9 @@ from quest    import views
 
 urlpatterns = [
                 path('1',views.V1),
-#                path('2',),
+                path('2',views.ProvaView,name ='login_utenti' ),
 #                path('3',),
-                path('4',views.RegistrationView),
+                path('4',views.RegistrationView,name ='registrazione_utenti'),
                 path('5',views.RegistrationAnagView),
                 path('6',views.V6),
                 path('7',views.RegistrationStudView,name ='registrazioni_studi'),

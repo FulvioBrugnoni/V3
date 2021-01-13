@@ -3,26 +3,27 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .forms import *
 from quest.models import *
 from django.core.exceptions import ObjectDoesNotExist
+from django.urls import reverse
 
 def V1(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =1)
-        tab = {'tab': testo}
-        return render(request,'quest/1.html',tab)
+        tab = {'tab': testo, 'passo_destra':reverse('registrazione_utenti'), 'passo_sinistra':'/2'}
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V6(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =6)
-        tab = {'tab': testo}
+        tab = {'tab': testo, 'passo_destra':reverse('registrazioni_studi'), 'passo_sinistra': reverse('ingresso_esperienza')}
         return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V8(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =8)
-        tab = {'tab': testo}
+        tab = {'tab': testo, 'passo_destra':reverse('registrazioni_studi'), 'passo_sinistra': reverse('ingresso_esperienza')}
         return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V9(request):
@@ -189,8 +190,8 @@ def RegistrationLangView(request):
 
 
 def ProvaView(request):
-        query = Risposta.objects.filter(utente__id = 5).order_by('-domanda__posizione').first()
-        print(query.domanda)
+#        query = Risposta.objects.filter(utente__id = 5).order_by('-domanda__posizione').first()
+#         print(query.domanda)
         return render(request,'quest/prova.html')
 
 
