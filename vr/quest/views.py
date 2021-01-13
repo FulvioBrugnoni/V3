@@ -110,9 +110,6 @@ def RegistrationView(request):
 
 
 def RegistrationAnagView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =5)
         candidato = Candidato.objects.all().order_by("-id")[0]
         if request.method == "POST":
                 form = AnagraficaForm(request.POST)
@@ -128,11 +125,11 @@ def RegistrationAnagView(request):
                     u = Anagrafica(candidato =candidato, nome=nome, cognome=cognome, codicefiscale=codicefiscale,
                                 eta =eta, gender=gender, stato=stato, provincia=provincia, comune=comune)
                     u.save()
-                    return HttpResponseRedirect("/6")
+                    return HttpResponseRedirect(reverse('ingresso_studi'))
         else:
             form = AnagraficaForm()
 
-        return render(request,'quest/5.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 
 def RegistrationStudView(request):

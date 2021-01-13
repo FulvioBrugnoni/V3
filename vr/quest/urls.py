@@ -7,7 +7,7 @@ urlpatterns = [
 #                path('3',),
                 path('4',views.RegistrationView,name ='registrazione_utenti'),
                 path('5',views.RegistrationAnagView),
-                path('6',views.V6),
+                path('6',views.V6,name='ingresso_studi'),
                 path('7',views.RegistrationStudView,name ='registrazioni_studi'),
                 path('8',views.V8),
                 path('9',views.V9, name ='ingresso_esperienza'),
