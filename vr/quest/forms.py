@@ -30,5 +30,10 @@ class QuestionForm(forms.Form):
     domanda = forms.IntegerField()
 #     valutazione = forms.CharField()
     CHOICES=[('1','1'),
-             ('2','2')]
-    valutazione = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+             ('2','2'),
+             ('3','3'),
+             ('4','4'),
+             ('5','5'),
+             ('6','6'),
+             ('7','7'),]
+    valutazione = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect, label= '')

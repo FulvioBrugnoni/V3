@@ -6,7 +6,7 @@ from django.db.utils import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 
 class Command(BaseCommand):
-    BASEDIR = '/Users/fulvio/Desktop/virtual/vr/csv/'
+    BASEDIR = '/Users/fulvio/Desktop/virtual2/vr/csv/'
     def handle(self,*args,**kwargs):
 
         with open(self.BASEDIR+'domanda.csv') as csv_file:

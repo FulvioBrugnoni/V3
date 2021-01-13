@@ -6,7 +6,7 @@ from django.db.utils import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 
 class Command(BaseCommand):
-    BASEDIR = '/Users/fulvio/Desktop/virtual/vr/csv/'
+    BASEDIR = '/Users/fulvio/Desktop/virtual2/vr/csv/'
     def handle(self,*args,**kwargs):
 
         with open(self.BASEDIR+'azienda.csv') as csv_file:
@@ -19,7 +19,12 @@ class Command(BaseCommand):
                     counter += 1
                     continue
                 try:
-                    importazione = Azienda(azienda=row[0],lingua=row[1] )
+                    lingua = Lingua.objects.get(id =row[1])
+                except ObjectDoesNotExist:
+                    self.stderr.write(f'Elemento {row[0]} non presente nel db')
+                    continue
+                try:
+                    importazione = AziendaLingua(azienda=row[0],lingua=lingua )
                     importazione.save()
                     self.stdout.write(f'Elemento {importazione.id} inserito')
                 except IntegrityError:

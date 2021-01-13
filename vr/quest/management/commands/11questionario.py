@@ -4,7 +4,7 @@ import csv
 from django.db.utils import IntegrityError
 
 class Command(BaseCommand):
-    BASEDIR = '/Users/fulvio/Desktop/virtual/vr/csv/'
+    BASEDIR = '/Users/fulvio/Desktop/virtual2/vr/csv/'
     def handle(self,*args,**kwargs):
 
         with open(self.BASEDIR+'Questionario.csv') as csv_file:

@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <meta charset="utf-8">
+    <title></title>
+
+    <link href="{% static '/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+  </head>
+  <body>
+<div class="container p-3 my-3 border">
+    <p>{{tab.0.testo}}</p>
+    <a  href="/27">{{tab.1.testo}}</a>.
+    <a  href="/18">{{tab.2.testo}}</a>.
+    <a  href="/21">{{tab.3.testo}}</a>.
+    <a  href="/24">{{tab.4.testo}}</a>.
+</div>
+  </body>
+</html>

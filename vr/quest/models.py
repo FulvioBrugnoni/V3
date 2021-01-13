@@ -97,16 +97,16 @@ class Esperienza(models.Model):
     def __str__(self):
         return self.nome
 
-class Lingua(models.Model):
+class Linguaconosciuta(models.Model):
 
     candidato = models.ForeignKey(Candidato, on_delete=models.PROTECT)
     lingua = models.CharField(max_length=25)
     livello = models.CharField(max_length=25)
 
     class Meta:
-            db_table ='lingua'
-            verbose_name ='lingua'
-            verbose_name_plural ='lingue'
+            db_table ='lingua_conosciuta'
+            verbose_name ='lingua_conosciuta'
+            verbose_name_plural ='lingue_conosciuta'
     def __str__(self):
         return self.nome
 
@@ -137,16 +137,31 @@ class Risposta(models.Model):
     def __str__(self):
         return self.utente.nome
 
+class Lingua(models.Model):
 
-class Azienda(models.Model):
+    lingua = models.CharField(max_length=25)
+
+    class Meta:
+            db_table ='lingua'
+            verbose_name ='lingua'
+            verbose_name_plural ='lingue'
+
+
+    def __str__(self):
+        return self.nome
+
+
+class AziendaLingua(models.Model):
 
     azienda = models.CharField(max_length=25, unique=True)
-    lingua = models.CharField(max_length=25)
+    lingua = models.ForeignKey(Lingua, on_delete=models.PROTECT)
 
     class Meta:
             db_table ='azienda'
             verbose_name ='azienda'
             verbose_name_plural ='aziende'
+
+            unique_together = [['azienda','lingua'],]
 
     def __str__(self):
         return self.nome
@@ -154,7 +169,7 @@ class Azienda(models.Model):
 class CandidatoAzienda(models.Model):
 
     candidato = models.ForeignKey(Candidato, on_delete=models.PROTECT)
-    azienda = models.ForeignKey(Azienda, on_delete=models.PROTECT)
+    azienda = models.ForeignKey(AziendaLingua, on_delete=models.PROTECT)
     giorno = models.DateTimeField(default=datetime.now, blank=True)
 
     class Meta:
@@ -167,9 +182,10 @@ class CandidatoAzienda(models.Model):
 
 class Testo(models.Model):
 
-    testo = models.CharField(max_length=25)
+    testo = models.CharField(max_length=250)
+    slide = models.CharField(max_length=25)
     posizione = models.CharField(max_length=25)
-    lingua = models.CharField(max_length=25)
+    lingua = models.ForeignKey(Lingua, on_delete=models.PROTECT)
 
     class Meta:
             db_table ='testo'
@@ -179,14 +195,14 @@ class Testo(models.Model):
     def __str__(self):
         return self.nome
 
-class Parametro(models.Model):
+class CandidatoParametro(models.Model):
 
     candidato = models.ForeignKey(Candidato, on_delete=models.PROTECT)
-    parametro = models.CharField(max_length=25)
+    parametro = models.ForeignKey(AziendaLingua, on_delete=models.PROTECT)
 
     class Meta:
-            db_table ='parametro'
-            verbose_name ='parametro'
-            verbose_name_plural ='parametri'
+            db_table ='candidato_parametro'
+            verbose_name ='candidato_parametro'
+            verbose_name_plural ='candidato_parametri'
     def __str__(self):
         return self.nome
