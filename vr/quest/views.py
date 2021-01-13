@@ -16,14 +16,14 @@ def V6(request):
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =6)
         tab = {'tab': testo}
-        return render(request,'quest/6.html',tab)
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V8(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =8)
         tab = {'tab': testo}
-        return render(request,'quest/8.html',tab)
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V9(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
