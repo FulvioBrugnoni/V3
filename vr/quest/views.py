@@ -30,83 +30,80 @@ def V9(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =9)
-        tab = {'tab': testo}
-        return render(request,'quest/9.html',tab)
+        tab = {'tab': testo, 'passo_destra':reverse('registrazioni_esperienze'), 'passo_sinistra': reverse('ingresso_lingue')}
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V11(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =11)
-        tab = {'tab': testo}
-        return render(request,'quest/11.html',tab)
+        tab = {'tab': testo, 'passo_destra':reverse('registrazioni_esperienze'), 'passo_sinistra': reverse('ingresso_lingue')}
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V12(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =12)
-        tab = {'tab': testo}
-        return render(request,'quest/12.html',tab)
+        tab = {'tab': testo, 'passo_destra':reverse('registrazioni_lingue'), 'passo_sinistra': reverse('registrazioni_questionari')}
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V14(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =14)
-        tab = {'tab': testo}
-        return render(request,'quest/14.html',tab)
+        tab = {'tab': testo, 'passo_destra':reverse('registrazioni_lingue'), 'passo_sinistra': reverse('registrazioni_questionari')}
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V16(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =16)
         tab = {'tab': testo}
-        return render(request,'quest/16.html',tab)
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V17(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =17)
         tab = {'tab': testo}
-        return render(request,'quest/17.html',tab)
+        return render(request,'quest/pagina_utente.html',tab)
 
 def V19(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =19)
-        tab = {'tab': testo}
-        return render(request,'quest/19.html',tab)
+        tab = {'tab': testo, 'passo_destra':reverse('upload_secondo_studi'), 'passo_sinistra': reverse('pagina_utente')}
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V22(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =22)
-        tab = {'tab': testo}
-        return render(request,'quest/22.html',tab)
+        tab = {'tab': testo, 'passo_destra':reverse('upload_secondo_esperienze'), 'passo_sinistra': reverse('pagina_utente')}
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 def V25(request):
         azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
         lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
         testo = Testo.objects.filter(lingua = lingua, slide =25)
-        tab = {'tab': testo}
-        return render(request,'quest/25.html',tab)
+        tab = {'tab': testo, 'passo_destra':reverse('upload_secondo_lingue'), 'passo_sinistra': reverse('pagina_utente')}
+        return render(request,'quest/richiesta_inserimento.html',tab)
 
 #---------------------------------------------------------------------------------------------------------
 
 
 def RegistrationView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =4)
         if request.method == "POST":
                 form = CandidatoForm(request.POST)
                 if form.is_valid():
                     candidato = form.cleaned_data["user"]
                     u = Candidato(user =candidato)
                     u.save()
-                    return HttpResponseRedirect("/5")
+                    return HttpResponseRedirect(reverse('registrazioni_anagrafica'))
         else:
             form = CandidatoForm()
 
-        return render(request,'quest/4.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 
 def RegistrationAnagView(request):
@@ -133,9 +130,6 @@ def RegistrationAnagView(request):
 
 
 def RegistrationStudView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =7)
         candidato = Candidato.objects.all().order_by("-id")[0]
         if request.method == "POST":
                 form = StudioForm(request.POST)
@@ -143,16 +137,13 @@ def RegistrationStudView(request):
                     titolo = form.cleaned_data["titolo"]
                     u = Studio(candidato =candidato, titolo=titolo)
                     u.save()
-                    return HttpResponseRedirect("/8")
+                    return HttpResponseRedirect(reverse('uscita_studi'))
         else:
             form = StudioForm()
 
-        return render(request,'quest/7.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 def RegistrationExpView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =10)
         candidato = Candidato.objects.all().order_by("-id")[0]
         if request.method == "POST":
                 form = EsperienzaForm(request.POST)
@@ -161,16 +152,13 @@ def RegistrationExpView(request):
                     durata = form.cleaned_data["durata"]
                     u = Esperienza(candidato =candidato, professione=professione, durata=durata)
                     u.save()
-                    return HttpResponseRedirect("/11")
+                    return HttpResponseRedirect(reverse('uscita_esperienze'))
         else:
             form = EsperienzaForm()
 
-        return render(request,'quest/10.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 def RegistrationLangView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =13)
         candidato = Candidato.objects.all().order_by("-id")[0]
         if request.method == "POST":
                 form = LinguaForm(request.POST)
@@ -179,11 +167,11 @@ def RegistrationLangView(request):
                     livello = form.cleaned_data["livello"]
                     u = Linguaconosciuta(candidato =candidato, lingua=lingua, livello=livello)
                     u.save()
-                    return HttpResponseRedirect("/14")
+                    return HttpResponseRedirect(reverse('uscita_lingue'))
         else:
             form = LinguaForm()
 
-        return render(request,'quest/13.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 
 def ProvaView(request):
@@ -209,7 +197,7 @@ def QuestView(request):
                         posizione=questionario_domanda.posizione +1 )
                     form = QuestionForm(initial={'questionario':questionario_domanda.questionario.id, 'domanda': questionario_domanda.domanda.id })
                 except ObjectDoesNotExist:
-                    return HttpResponseRedirect("/16")
+                    return HttpResponseRedirect(reverse('fine'))
         else:
             questionario = Questionario.objects.get(id=1)
             risposte = Risposta.objects.filter(domanda__questionario =questionario, utente=utente).order_by('-domanda__posizione')
@@ -224,7 +212,7 @@ def QuestView(request):
                         .get(questionario =ultima_questionario_domanda.questionario,
                             posizione=ultima_questionario_domanda.posizione +1 )
                 except ObjectDoesNotExist:
-                    return HttpResponseRedirect("/16")
+                    return HttpResponseRedirect(reverse('fine'))
 
             form = QuestionForm(initial={'questionario':questionario.id, 'domanda': questionario_domanda.domanda.id })
 
@@ -237,9 +225,6 @@ def RiassuntoCandidato(request):
 
 
 def UpdateFirstLangView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =24)
         id = 5
         Linguaconosciuta.objects.filter(candidato__id=id).delete()
         candidato = Candidato.objects.get(id = id)
@@ -250,16 +235,13 @@ def UpdateFirstLangView(request):
                     livello = form.cleaned_data["livello"]
                     u = Linguaconosciuta(candidato =candidato, lingua=lingua, livello=livello)
                     u.save()
-                    return HttpResponseRedirect("/25")
+                    return HttpResponseRedirect(reverse('upload_lingue'))
         else:
             form = LinguaForm()
 
-        return render(request,'quest/24.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 def UpdatesecondLangView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =26)
         id = 5
         candidato = Candidato.objects.get(id = id)
         if request.method == "POST":
@@ -269,17 +251,14 @@ def UpdatesecondLangView(request):
                     livello = form.cleaned_data["livello"]
                     u = Linguaconosciuta(candidato =candidato, lingua=lingua, livello=livello)
                     u.save()
-                    return HttpResponseRedirect("/25")
+                    return HttpResponseRedirect(reverse('upload_lingue'))
         else:
             form = LinguaForm()
 
-        return render(request,'quest/26.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 
 def UpdateFirstExpView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =21)
         id = 5
         Esperienza.objects.filter(candidato__id=id).delete()
         candidato = Candidato.objects.get(id = id)
@@ -290,16 +269,13 @@ def UpdateFirstExpView(request):
                     durata = form.cleaned_data["durata"]
                     u = Esperienza(candidato =candidato, professione=professione, durata=durata)
                     u.save()
-                    return HttpResponseRedirect("/22")
+                    return HttpResponseRedirect(reverse('upload_esperienze'))
         else:
             form = EsperienzaForm()
 
-        return render(request,'quest/21.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 def UpdateSecondExpView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =23)
         id = 5
         candidato = Candidato.objects.get(id = id)
         if request.method == "POST":
@@ -309,16 +285,13 @@ def UpdateSecondExpView(request):
                     durata = form.cleaned_data["durata"]
                     u = Esperienza(candidato =candidato, professione=professione, durata=durata)
                     u.save()
-                    return HttpResponseRedirect("/22")
+                    return HttpResponseRedirect(reverse('upload_esperienze'))
         else:
             form = EsperienzaForm()
 
-        return render(request,'quest/23.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 def UpdatefirstStudView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =18)
         id = 5
         Studio.objects.filter(candidato__id=id).delete()
         candidato = Candidato.objects.get(id = id)
@@ -328,16 +301,13 @@ def UpdatefirstStudView(request):
                     titolo = form.cleaned_data["titolo"]
                     u = Studio(candidato =candidato, titolo=titolo)
                     u.save()
-                    return HttpResponseRedirect("/19")
+                    return HttpResponseRedirect(reverse('upload_studi'))
         else:
             form = StudioForm()
 
-        return render(request,'quest/18.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 def UpdatesecondStudView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =20)
         id = 5
         candidato = Candidato.objects.get(id = id)
         if request.method == "POST":
@@ -346,16 +316,13 @@ def UpdatesecondStudView(request):
                     titolo = form.cleaned_data["titolo"]
                     u = Studio(candidato =candidato, titolo=titolo)
                     u.save()
-                    return HttpResponseRedirect("/19")
+                    return HttpResponseRedirect(reverse('upload_studi'))
         else:
             form = StudioForm()
 
-        return render(request,'quest/20.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
 
 def UpdateAnagView(request):
-        azienda = AziendaLingua.objects.filter(candidatoparametro__parametro = 2).first().id
-        lingua = Lingua.objects.filter(aziendalingua__id = azienda).first().id
-        testo = Testo.objects.filter(lingua = lingua, slide =27)
         id = 5
         Anagrafica.objects.filter(candidato__id=id).delete()
         candidato = Candidato.objects.get(id = id)
@@ -373,8 +340,8 @@ def UpdateAnagView(request):
                     u = Anagrafica(candidato =candidato, nome=nome, cognome=cognome, codicefiscale=codicefiscale,
                                 eta =eta, gender=gender, stato=stato, provincia=provincia, comune=comune)
                     u.save()
-                    return HttpResponseRedirect("/17")
+                    return HttpResponseRedirect(reverse('pagina_utente'))
         else:
             form = AnagraficaForm()
 
-        return render(request,'quest/27.html', {'form': form, 'tab': testo})
+        return render(request,'quest/registrazione_utente.html', {'form': form})
